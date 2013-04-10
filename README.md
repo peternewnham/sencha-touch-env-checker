@@ -1,4 +1,4 @@
-encha-touch-env-checker
-========================
+Sencha Touch Environment Checker
+================================
 
-Displays the 'is' enviroment variables created by Ext.os, Ext.browser and Ext.feature
+Displays the various Sencha Touch environment values contained within Ext.os.is, Ext.browser.is and Ext.feature.is
