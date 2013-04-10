@@ -56,6 +56,26 @@ function generateTable(type) {
 // launch application
 Ext.application({
 	launch: function() {
+
+		var src = {
+			'220rc': {
+				css:	"2.2rc/sencha-touch.css",
+				js:		"2.2rc/sencha-touch-all.js"
+			},
+			'210': {
+				css:	"http://cdn.sencha.io/touch/sencha-touch-2.1.0/resources/css/sencha-touch.css",
+				js:		"http://cdn.sencha.io/touch/sencha-touch-2.1.0/sencha-touch-all.js"
+			},
+			'201': {
+				css:	"http://cdn.sencha.io/touch/sencha-touch-2.0.1/resources/css/sencha-touch.css",
+				js:		"http://cdn.sencha.io/touch/sencha-touch-2.0.1/sencha-touch-all.js"
+			},
+			'200': {
+				css:	"http://cdn.sencha.io/touch/sencha-touch-2.0.0/resources/css/sencha-touch.css",
+				js:		"http://cdn.sencha.io/touch/sencha-touch-2.0.0/sencha-touch-all.js"
+			}
+		};
+
 		Ext.create('Ext.Container', {
     		fullscreen: true,
     		layout: 'fit',
@@ -68,15 +88,17 @@ Ext.application({
     					{
     						xtype:	'selectfield',
     						label:	'Version',
-    						// default latest release version - 2.1.0
     						value: function() {
-    							var qs = Ext.urlDecode(window.location.search);
-    							return qs.version || '210';
+    							return Ext.version.getShortVersion();
     						}(),
     						options:	[
     							{
     								text:	'Sencha Touch 2.2 RC',
-    								value:	'220rc'
+    								value:	'220'
+    							},
+    							{
+    								text:	'Sencha Touch 2.1.1',
+    								value:	'211'
     							},
     							{
     								text:	'Sencha Touch 2.1.0',
@@ -96,7 +118,8 @@ Ext.application({
     								if (Ext.isObject(newValue)) {
     									newValue = newValue.get('value');
     								}
-    								window.location = '?version=' + newValue;
+    								// redirect to load the new version
+    								window.location = './?version=' + newValue + location.hash;
     							}
     						}
     					}
@@ -108,21 +131,14 @@ Ext.application({
         				styleHtmlContent: true,
         				scrollable: true
     				},
+    				activeItem: parseInt(location.hash.replace(/^#tab/, ''), 10) || 0,
+    				listeners: {
+    					activeitemchange: function(tabPanel, newTab, oldTab) {
+    						// change the url hash so we can open this tab again on reload
+    						window.location.href = '#tab' + tabPanel.getInnerItems().indexOf(newTab);
+    					}
+    				},
 					items: [
-						// body classes
-						{
-							title: 'Body',
-							html: function() {
-								var bodyClasses = Ext.getBody().dom.className.split(' ');
-								var html = '<b>Body Classes:</b><table>';
-								for (var i=0,ilen=bodyClasses.length; i<ilen; i++) {
-									html += '<tr><th>' + bodyClasses[i] + '</th></tr>';
-								}
-
-								html += '</table>';
-								return html;
-							}()
-						},
 						// Ext.browser + user agent
 						{
 							title: 'Browser',
@@ -137,6 +153,19 @@ Ext.application({
 						{
 							title: 'Feature',
 							html: generateTable(Ext.feature.has)
+						},
+						// body classes
+						{
+							title: 'Body',
+							html: function() {
+
+								var bodyClasses = Ext.getBody().dom.className.split(' ');
+								var bodyObj = {};
+								for (var i=0,ilen=bodyClasses.length; i<ilen;i++) {
+									bodyObj[bodyClasses[i]] = true;
+								}
+								return '<b>Body Classes:</b>' + generateTable(bodyObj);
+							}()
 						}
 					]
 				}
