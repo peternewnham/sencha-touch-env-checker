@@ -55,6 +55,9 @@ function generateTable(type) {
 
 // launch application
 Ext.application({
+	viewport: {
+        autoMaximize: Ext.os.is.iOS
+    },
 	launch: function() {
 
 		var src = {
