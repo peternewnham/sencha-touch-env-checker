@@ -56,7 +56,8 @@ function generateTable(type) {
 // launch application
 Ext.application({
 	viewport: {
-        autoMaximize: Ext.os.is.iOS
+		// only auto-maximize safari
+        autoMaximize: Ext.os.is.ios && Ext.browser.is.safari
     },
 	launch: function() {
 
