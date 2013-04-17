@@ -1,5 +1,9 @@
 (function() {
 
+	window.onerror = function(msg, file, line) {
+		alert("Error:\n" + msg + "\n" + file + "\n" + line);
+	}
+
 /**
  * Generates the html for a table from an Ext.env.is type (Ext.browser.is, Ext.os.is, Ext.feature.is)
  */
@@ -56,6 +60,8 @@ function generateTable(type, colour) {
 	return html;
 }
 
+
+
 // launch application
 Ext.application({
 	viewport: {
@@ -63,6 +69,14 @@ Ext.application({
         autoMaximize:	Ext.os.is.ios && Ext.browser.is.safari
     },
 	launch: function() {
+
+		// generate browser html
+
+		// user agent
+		var browserHtml = '<b>Ext.browser.userAgent:</b><br/>' + Ext.browser.userAgent + '<br/><br/>';
+
+		// Ext.browser.is
+		browserHtml +='<b>Ext.browser.is.*</b><br/>' + generateTable(Ext.browser.is, false);
 
 		Ext.Viewport.add({
 			layout: 'fit',
@@ -129,27 +143,8 @@ Ext.application({
 						// Ext.browser + user agent
 						{
 							title: 'Browser',
-							html: function() {
-								// user agent
-								var html = '<b>Ext.browser.userAgent:</b><br/>' + Ext.browser.userAgent + '<br/><br/>';
-
-								// version
-								html += '<b>Ext.browser.version.*</b><br/>';
-								var versionObj = {
-									'version': Ext.browser.version.version, 
-									'getShortVersion()': Ext.browser.version.getShortVersion(),
-									'getMajor()': Ext.browser.version.getMajor(),
-									'getMinor()': Ext.browser.version.getMinor(),
-									'getPatch()': Ext.browser.version.getPatch(),
-									'getRelease()': Ext.browser.version.getRelease()
-								};
-								html += generateTable(versionObj, true);
-
-								// Ext.browser.is
-								html +='<b>Ext.browser.is.*</b><br/>' + generateTable(Ext.browser.is, false);
-
-								return html;
-							}()
+							html:	'<b>Ext.browser.userAgent:</b><br/>' + Ext.browser.userAgent + '<br/><br/>' +
+									'<b>Ext.browser.is.*</b><br/>' + generateTable(Ext.browser.is, false)
 						},
 						// Ext.os
 						{
