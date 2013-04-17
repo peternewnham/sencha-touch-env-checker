@@ -134,14 +134,14 @@ Ext.application({
 								var html = '<b>Ext.browser.userAgent:</b><br/>' + Ext.browser.userAgent + '<br/><br/>';
 
 								// version
-								html += '<b>Ext.browser.version:</b><br/>';
+								html += '<b>Ext.browser.version.*</b><br/>';
 								var versionObj = {
-									version:Ext.browser.version, 
-									shortVersion: Ext.browser.version.shortVersion,
-									major: Ext.browser.version.major,
-									minor: Ext.browser.version.minor,
-									patch: Ext.browser.version.getPatch(),
-									release: Ext.browser.version.getRelease()
+									'version': Ext.browser.version.version, 
+									'getShortVersion()': Ext.browser.version.getShortVersion(),
+									'getMajor()': Ext.browser.version.getMajor(),
+									'getMinor()': Ext.browser.version.getMinor(),
+									'getPatch()': Ext.browser.version.getPatch(),
+									'getRelease()': Ext.browser.version.getRelease()
 								};
 								html += generateTable(versionObj, true);
 
