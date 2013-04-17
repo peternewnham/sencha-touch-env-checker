@@ -2,15 +2,14 @@
 
 window.addEventListener("DOMContentLoaded", function() {
 
-	// default to latest release - 2.1.1
-	var version = '211';
+	// default to latest release - 2.2.0
+	var version = '220';
 
 	// js and css src for all versions
 	var src = {
-		// release candidate not yet on cdn
 		'220': {
-			css:	"2.2rc/sencha-touch.css",
-			js:		"2.2rc/sencha-touch-all.js"
+			css:	"http://cdn.sencha.io/touch/sencha-touch-2.2.0/resources/css/sencha-touch.css",
+			js:		"http://cdn.sencha.io/touch/sencha-touch-2.2.0/sencha-touch-all.js"
 		},
 		'211': {
 			css:	"http://cdn.sencha.io/touch/sencha-touch-2.1.1/resources/css/sencha-touch.css",
