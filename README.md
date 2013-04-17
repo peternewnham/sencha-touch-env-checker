@@ -2,7 +2,7 @@ Sencha Touch Environment Checker
 ================================
 
 A simple app for displaying the various Sencha Touch environment variables.
-Online example can be found at: 
+Online example can be found at: http://www.blarg.co.uk/dev/sencha-env/
 
 Browser
 -------
