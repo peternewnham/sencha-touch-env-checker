@@ -2,11 +2,12 @@ Sencha Touch Environment Checker
 ================================
 
 A simple app for displaying the various Sencha Touch environment variables.
+Online example can be found at: 
 
 Browser
 -------
 Displays the various browser variables:
-Ext.browser.userAgent, Ext.browser.version.* and Ext.browser.is.*
+Ext.browser.userAgent and Ext.browser.is.*
 
 OS
 ----
